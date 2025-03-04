@@ -4,14 +4,18 @@ import (
 	"context"
 	"fmt"
 
+	"os"
+
 	"github.com/redis/go-redis/v9"
 )
 
 var ctx = context.Background()
 
 func ExampleClient() {
+	redisPort := os.Getenv("DB_PORT")
+
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:{DB_PORT}",
+		Addr:     "localhost:" + redisPort,
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
