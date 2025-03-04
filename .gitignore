@@ -15,3 +15,7 @@ config.yaml
 bin/
 pkg/
 vendor/
+
+# Go modules and cache
+go.sum
+/tmp/
