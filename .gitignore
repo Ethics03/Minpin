@@ -1,0 +1,17 @@
+# Environment variables
+.env
+.env.local
+config.yaml
+
+# Binaries
+*.exe
+*.out
+*.o
+*.a
+*.so
+*.dll
+
+# Go dependencies
+bin/
+pkg/
+vendor/
