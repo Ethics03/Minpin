@@ -5,7 +5,7 @@
 - Shortens long URLs into short links.
 - Redirect short links to the originaal URLs.
 - REST API integration for ease of use.
-- REST API for easy integration.
+
 
 ## Installation
 
