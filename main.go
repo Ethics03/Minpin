@@ -20,7 +20,8 @@ func main() {
 
 	router.HandleFunc("POST /shorten", func(w http.ResponseWriter, r *http.Request) {
 		requestData := shortenREQ{}
-		err := json.NewDecoder(r.Body).Decode(&requestData) //decodes whatever where is in the request body to json
+		err := json.NewDecoder(r.Body).Decode(&requestData) //decodes whatever there is
+		//in the request body to the requestData struct form
 		if err != nil {
 			panic(err)
 		}
