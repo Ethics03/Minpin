@@ -1,43 +1,38 @@
 package main
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
-	"os"
-
-	"github.com/redis/go-redis/v9"
+	"net/http"
 )
 
-var ctx = context.Background()
+type shortenREQ struct {
+	Url string
+	Tag string
+}
 
-func ExampleClient() {
-	redisPort := os.Getenv("DB_PORT")
-
-	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:" + redisPort,
-		Password: "", // no password set
-		DB:       0,  // use default DB
+func main() {
+	router := http.NewServeMux()
+	//Not using a framework for learning purposes
+	router.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("hello world"))
 	})
 
-	err := rdb.Set(ctx, "key", "value", 0).Err()
-	if err != nil {
-		panic(err)
+	router.HandleFunc("POST /shorten", func(w http.ResponseWriter, r *http.Request) {
+		requestData := shortenREQ{}
+		err := json.NewDecoder(r.Body).Decode(&requestData) //decodes whatever where is in the request body to json
+		if err != nil {
+			panic(err)
+		}
+		w.Write([]byte(requestData.Url))
+	})
+
+	server := http.Server{
+		Addr:    ":3000",
+		Handler: router,
 	}
 
-	val, err := rdb.Get(ctx, "key").Result()
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("key", val)
+	fmt.Println("Listening on port: 3000")
+	server.ListenAndServe()
 
-	val2, err := rdb.Get(ctx, "key2").Result()
-	if err == redis.Nil {
-		fmt.Println("key2 does not exist")
-	} else if err != nil {
-		panic(err)
-	} else {
-		fmt.Println("key2", val2)
-	}
-	// Output: key value
-	// key2 does not exist
 }
