@@ -3,7 +3,7 @@
 
 ## Features (Planned)
 - Shortens long URLs into short links.
-- Redirect short links to the originaal URLs.
+- Redirect short links to the original URLs.
 - REST API integration for ease of use.
 
 
