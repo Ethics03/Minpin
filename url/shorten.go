@@ -26,9 +26,7 @@ func ShortenURL() (string, error) {
 }
 
 func ShortURL(ctx context.Context, tag, longURL string) (string, error) {
-
 	shorturl, err := ShortenURL()
-
 	if err != nil {
 		return "", err
 	}
