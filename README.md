@@ -22,6 +22,12 @@ cd Minpin
 go mod download
 ```
 
+# Initialization (PostgreSQL)
+
+```sh
+docker compose up -d 
+```
+
 # Run the app
 
 ```sh
