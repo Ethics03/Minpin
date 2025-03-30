@@ -9,24 +9,31 @@ import (
 	"strings"
 )
 
-func ShortenURL() (string, error) {
+func ShortenURL(ctx context.Context) (string, error) {
 	const shortl = 6
-	bytes := make([]byte, shortl)
 
-	if _, err := rand.Read(bytes); err != nil {
-		return "", err
+	for {
+		bytes := make([]byte, shortl)
+		if _, err := rand.Read(bytes); err != nil {
+			return "", err
+		}
+
+		shortURL := base64.URLEncoding.EncodeToString(bytes)
+
+		shortURL = strings.TrimRight(shortURL, "=")[:shortl]
+
+		exists, err := db.ShortExists(ctx, shortURL)
+		if err != nil {
+			return "", err
+		}
+		if !exists {
+			return shortURL, nil
+		}
 	}
-
-	shortURL := base64.URLEncoding.EncodeToString(bytes)
-
-	shortURL = strings.TrimRight(shortURL, "=")
-
-	return shortURL[:shortl], nil
-
 }
 
 func ShortURL(ctx context.Context, tag, longURL string) (string, error) {
-	shorturl, err := ShortenURL()
+	shorturl, err := ShortenURL(ctx)
 	if err != nil {
 		return "", err
 	}
