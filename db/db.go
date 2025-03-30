@@ -59,4 +59,11 @@ func CloseDB() {
 		pool.Close()
 		fmt.Println("DB CLOSED")
 	}
+
+}
+
+func ShortExists(ctx context.Context, shortURL string) (bool, error) {
+	var exists bool
+	err := pool.QueryRow(ctx, "SELECT EXISTS(SELECT 1 FROM urls WHERE short_url=$1)", shortURL).Scan(&exists)
+	return exists, err
 }
