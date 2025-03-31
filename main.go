@@ -10,6 +10,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+// using chi - for routes
 func main() {
 
 	if err := db.InitDB(); err != nil {

@@ -1,5 +1,6 @@
 package handlers
 
+//for routes
 import (
 	"encoding/json"
 	"fmt"

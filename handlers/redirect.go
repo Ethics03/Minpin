@@ -1,5 +1,6 @@
 package handlers
 
+// for redirecting to the longURl
 import (
 	"context"
 	"fmt"
@@ -19,6 +20,6 @@ func RedirectHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.Redirect(w, r, longURL, http.StatusFound)
-	fmt.Println("Redirecting to:", longURL)
+	fmt.Println("Redirecting to :", longURL)
 
 }
